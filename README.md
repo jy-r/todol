@@ -9,3 +9,11 @@ To-do list in python. Simple and minimalistic to-do tracking. Everything is save
 - `clear` - clears all to-dos
 - `backup` - creates backup 
 
+## Install 
+
+```
+cd $path
+git clone https://github.com/jy-r/todol.git
+
+alias todol='python3 $path/todol/todol.py'
+```
