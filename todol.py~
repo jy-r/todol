@@ -1,13 +1,9 @@
 #!/usr/bin/python3
-
+import os
 import sys
 import time
 #(6)[]  check new lines and if they dont have (id)[] added it
-#2018-11-02 work with iterator and save lines, lines[i].find("[....
-#2018-11-02 add if there is no file create new one
 #2018-11-02 add info command to write how many todos there are etc
-#2018-11-02 shorthand for add +
-#2018-11-02 work with arrays 
 
 # Set directory
 dir = "/home/jiri/ownCloud/notes/"
@@ -16,11 +12,19 @@ def backup(lines,dir):
 	print("Do you want to creat backup? (yes/no)")
 	usr_confirmation_backup = input()
 	if usr_confirmation_backup in ['y','Y','yes','YES']:
-		backup = open(dir+"note"+str(time.time())+".md","w")
+		backup = open(dir+"todo_backup_"+str(time.time())+".md","w")
 		backup.writelines(lines)
 		backup.close()
 	return
 
+if os.path.isfile(dir+"todo.md") == False:
+	print("There is no todo.md file. Do you want to creat it in directory: "+dir+"? (yes/n)")
+	usr_create_file = input()
+	if usr_create_file in ['y','Y','yes','YES']:
+		create = open(dir+"todo.md","w")
+		create.close()
+	else: 
+		sys.exit()
 
 load = open(dir+"todo.md","r")
 lines = load.readlines()
@@ -45,7 +49,7 @@ else:
 	else:
 		last = len(lines)+1
 	
-	if usr_type == "add":
+	if usr_type == in ["add","+"]:
 		last = last + 1
 		usr_input = " ".join(sys.argv[2:]) 
 		lines.insert(0,("("+str(last)+")[] "+usr_input+"\n"))
@@ -70,6 +74,8 @@ else:
 		usr_confirmation_clear = input()
 		if usr_confirmation_clear in ['y','Y','yes','YES']:
 			lines = ""
+	if usr_type == "backup":
+		backup(lines,dir)
 		
 
 load = open(dir+"todo.md","w")

@@ -14,6 +14,10 @@ To-do list in python. Simple and minimalistic to-do tracking. Everything is save
 ```
 cd $path
 git clone https://github.com/jy-r/todol.git
+```
 
+`~/.bashrc`
+
+```
 alias todol='python3 $path/todol/todol.py'
 ```
