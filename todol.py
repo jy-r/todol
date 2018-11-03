@@ -2,6 +2,7 @@
 import os
 import sys
 import time
+import readline
 #(6)[]  check new lines and if they dont have (id)[] added it
 #2018-11-02 add info command to write how many todos there are etc
 
@@ -16,6 +17,15 @@ def backup(lines,dir):
 		backup.writelines(lines)
 		backup.close()
 	return
+
+def input_with_prefill(prompt, text):
+    def hook():
+        readline.insert_text(text)
+        readline.redisplay()
+    readline.set_pre_input_hook(hook)
+    result = input(prompt)
+    readline.set_pre_input_hook()
+    return result
 
 if os.path.isfile(dir+"todo.md") == False:
 	print("There is no todo.md file. Do you want to creat it in directory: "+dir+"? (yes/n)")
@@ -32,16 +42,27 @@ load.close()
 
 
 if len(sys.argv) < 2: #name of program is 1
-	found_line = 0
-	for line in lines:
-		if line.find("[]") > 0:
-			print(line)
-			found_line = 1
-	if len(lines) < 1 or found_line==0:
+	if len(lines) < 1:
 		print("there are no todos yet... please use 'add' ")
 		last = 0
 	else:
 		last = len(lines)+1
+
+	found_line = 0
+	for l in range(0, len(lines)):
+		if lines[l].find(")[]") == -1 and lines[l].find(")[x]") == -1:
+			print(lines[l]+"Do you want to add ID and checkbox?:")
+			usr_auto = input()
+			if usr_auto in ["y","Y","yes","YES"]:
+				lines[l] = "("+str(last)+")[]"+lines[l]
+	print("---------------")
+	for j in range(0, len(lines)):
+		if lines[j].find(")[]") > 0:
+			print(lines[j])
+			found_line = 1			
+	if found_line == 0:
+		print("All todos are already done... please user 'add'") 
+	print("---------------")
 else:
 	usr_type = sys.argv[1]
 	if len(lines) < 1: 
@@ -49,11 +70,11 @@ else:
 	else:
 		last = len(lines)+1
 	
-	if usr_type in ["add","+"]:
+	if usr_type in ["add","+","a"]:
 		last = last + 1
 		usr_input = " ".join(sys.argv[2:]) 
 		lines.insert(0,("("+str(last)+")[] "+usr_input+"\n"))
-	if usr_type == "done":
+	if usr_type in ["done","d"]:
 		for usr_done in sys.argv[2:]:
 			found_done = 0
 			for i in range(0,len(lines)):
@@ -65,6 +86,15 @@ else:
 				print("To do "+usr_done+" not found or already done")
 			elif found_done ==1:
 				print("To-do "+usr_done+" done")
+	if usr_type in ["e","edit"]:
+		for usr_done in sys.argv[2:]:
+			found_done = 0
+			for i in range(0,len(lines)):
+				if lines[i].find("("+usr_done+")[]") != -1:
+					lines[i] = input_with_prefill("Edit:",lines[i])+"\n"
+					found_done = 1
+			if found_done == 0: 
+				print("To do "+usr_done+" not found")
 
 
 
@@ -76,6 +106,8 @@ else:
 			lines = ""
 	if usr_type == "backup":
 		backup(lines,dir)
+	if usr_type in ["help","h"]:
+		print("------------- \n add [text] - to add new todo \n edit [id] - edite todos \n done [id] - mark as done \n clear - to clear all todos in file \n backup - backup in new file \n-------------")
 		
 
 load = open(dir+"todo.md","w")
