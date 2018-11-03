@@ -75,7 +75,7 @@ else:
 		last = last + 1
 		usr_input = " ".join(sys.argv[2:]) 
 		lines.insert(0,("("+str(last)+")[] "+usr_input+"\n"))
-	if usr_type in ["done","d"]:
+	elif usr_type in ["done","d"]:
 		for usr_done in sys.argv[2:]:
 			found_done = 0
 			for i in range(0,len(lines)):
@@ -87,7 +87,7 @@ else:
 				print("To do "+usr_done+" not found or already done")
 			elif found_done ==1:
 				print("To-do "+usr_done+" done")
-	if usr_type in ["e","edit"]:
+	elif usr_type in ["e","edit"]:
 		for usr_done in sys.argv[2:]:
 			found_done = 0
 			for i in range(0,len(lines)):
@@ -99,16 +99,20 @@ else:
 
 
 
-	if usr_type == "clear":
+	elif usr_type == "clear":
 		backup(lines,dir)
 		print("Are you sure to delete all to-dos? (yes/no)")
 		usr_confirmation_clear = input()
 		if usr_confirmation_clear in ['y','Y','yes','YES']:
 			lines = ""
-	if usr_type == "backup":
+	elif usr_type == "backup":
 		backup(lines,dir)
-	if usr_type in ["help","h"]:
+	elif usr_type in ["help","h"]:
 		print("------------- \n add [text] - to add new todo \n edit [id] - edite todos \n done [id] - mark as done \n clear - to clear all todos in file \n backup - backup in new file \n-------------")
+	else:
+		last = last + 1
+		usr_input = " ".join(sys.argv[1:]) 
+		lines.insert(0,("("+str(last)+")[] "+usr_input+"\n"))
 		
 
 load = open(dir+"todo.md","w")
