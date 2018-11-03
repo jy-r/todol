@@ -4,10 +4,12 @@ To-do list in python. Simple and minimalistic to-do tracking. Everything is save
 
 ## Features 
 
-- `add $text` - add new item to to-do list
-- `done $n $n` - checkout item as done
+- `add [text]` - add new item to to-do list
+- `done [id] [id]` - checkout item as done
+- `edit [id] [id]` - edite todos
 - `clear` - clears all to-dos
 - `backup` - creates backup 
+
 
 ## Install 
 
