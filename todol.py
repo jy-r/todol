@@ -3,11 +3,16 @@ import os
 import sys
 import time
 import readline
+import pickle
 #(6)[]  check new lines and if they dont have (id)[] added it
 #2018-11-02 add info command to write how many todos there are etc
 
-# Set directory
-dir = "/home/jiri/ownCloud/notes/"
+
+	
+
+
+
+
 
 def backup(lines,dir):
 	print("Do you want to creat backup? (yes/no)")
@@ -26,6 +31,22 @@ def input_with_prefill(prompt, text):
     result = input(prompt)
     readline.set_pre_input_hook()
     return result
+
+
+# Set directory
+dir = "/home/jiri/ownCloud/notes/"
+dir_script = sys.path[0]
+
+if os.path.isfile(dir_script+"/objs.pkl")==False:
+	dir = input_with_prefill("Set path to todo.md:", dir)
+	with open(dir_script+'/objs.pkl', 'wb') as f:
+    		pickle.dump(dir, f)
+
+with open(dir_script+'/objs.pkl', "rb") as f: 
+    dir = str(pickle.load(f))
+
+
+
 
 if os.path.isfile(dir+"todo.md") == False:
 	print("There is no todo.md file. Do you want to creat it in directory: "+dir+"? (yes/n)")
