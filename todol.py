@@ -55,13 +55,14 @@ if len(sys.argv) < 2: #name of program is 1
 			usr_auto = input()
 			if usr_auto in ["y","Y","yes","YES"]:
 				lines[l] = "("+str(last)+")[]"+lines[l]
+				last = last + 1
 	print("---------------")
 	for j in range(0, len(lines)):
 		if lines[j].find(")[]") > 0:
 			print(lines[j])
 			found_line = 1			
 	if found_line == 0:
-		print("All todos are already done... please user 'add'") 
+		print("All todos are already done... please use 'add'") 
 	print("---------------")
 else:
 	usr_type = sys.argv[1]
