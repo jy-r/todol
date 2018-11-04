@@ -113,7 +113,7 @@ else:
 			found_done = 0
 			for i in range(0,len(lines)):
 				if lines[i].find("("+usr_done+")[]") != -1:
-					lines[i] = input_with_prefill("Edit:",lines[i])+"\n"
+					lines[i] = input_with_prefill("Edit:",lines[i]).rstrip()+"\n"
 					found_done = 1
 			if found_done == 0: 
 				print("To do "+usr_done+" not found")
