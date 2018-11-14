@@ -142,7 +142,10 @@ else:
 		print("------------- \n add [text] - to add new todo \n edit [id] - edite todos \n done [id] - mark as done \n clear - to clear all todos in file \n backup - backup in new file \n-------------")
 	elif usr_type in ["-switch", "-s"]:
 		switch = sys.argv[2]
-		if os.path.isfile(dir+switch+".md")==False:
+		if switch == "-l":
+			files_list = os.listdir(dir)
+			print(files_list)
+		elif os.path.isfile(dir+switch+".md")==False:
 			print("There is no "+switch+".md file to switch to. Do you want to creat it in directory: "+dir+"? (yes/no)")
 			usr_create_file = input()
 			if usr_create_file in ['y','Y','yes','YES']:
