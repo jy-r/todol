@@ -11,7 +11,9 @@ def backup(lines,dir,todo):
 	print("Do you want to creat backup? (yes/no)")
 	usr_confirmation_backup = input()
 	if usr_confirmation_backup in ['y','Y','yes','YES']:
-		backup = open(dir+todo+"backup_"+str(time.time())+".md","w")
+		if not os.path.exists(dir+"backup/"):
+			os.makedirs(dir+"backup/")
+		backup = open(dir+"backup/"+todo+"backup_"+str(time.time())+".md","w")
 		backup.writelines(lines)
 		backup.close()
 	return
