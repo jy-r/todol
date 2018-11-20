@@ -27,6 +27,12 @@ def input_with_prefill(prompt, text):
     readline.set_pre_input_hook()
     return result
 
+def isFileType(s):
+	if s.endswith(".md"):
+		return True
+	else: 
+		return False
+
 
 # Set directory
 dir = "/home/jiri/ownCloud/notes/"
@@ -60,8 +66,9 @@ load.close()
 
 
 if len(sys.argv) < 2: #name of program is 1
+	list_of_notes = filter(isFileType,os.listdir(dir))
 	print("---------------")
-	print("file: "+todo)
+	print("file: "+todo+" | "+str(list(list_of_notes)))
 	if len(lines) < 1:
 		print("---------------")
 		print("there are no todos yet... please use 'add' ")
@@ -145,8 +152,8 @@ else:
 	elif usr_type in ["-switch", "-s"]:
 		switch = sys.argv[2]
 		if switch == "-l":
-			files_list = os.listdir(dir)
-			print(files_list)
+			list_of_notes = filter(isFileType,os.listdir(dir))
+			print(str(list(list_of_notes)))
 		elif os.path.isfile(dir+switch+".md")==False:
 			print("There is no "+switch+".md file to switch to. Do you want to creat it in directory: "+dir+"? (yes/no)")
 			usr_create_file = input()
