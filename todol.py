@@ -42,25 +42,26 @@ dir_script = sys.path[0]
 if os.path.isfile(dir_script+"/objs.pkl")==False:
 	dir = input_with_prefill("Set path to todo list file:", dir)
 	todo = input_with_prefill("Default file (recomended: 'todo.md'):", todo)
+	todo_open = todo
 	with open(dir_script+'/objs.pkl', 'wb') as f:
-    		pickle.dump([dir,todo], f)
+    		pickle.dump([dir, todo, todo_open], f)
 
 with open(dir_script+'/objs.pkl', "rb") as f: 
-    dir, todo = pickle.load(f)
+    dir, todo, todo_open = pickle.load(f)
 
 
 
 
-if os.path.isfile(dir+todo) == False:
-	print("There is no "+todo+".md file. Do you want to creat it in directory: "+dir+"? (yes/n)")
+if os.path.isfile(dir+todo_open) == False:
+	print("There is no "+todo_open+".md file. Do you want to creat it in directory: "+dir+"? (yes/n)")
 	usr_create_file = input()
 	if usr_create_file in ['y','Y','yes','YES']:
-		create = open(dir+todo,"w")
+		create = open(dir+todo_open,"w")
 		create.close()
 	else: 
 		sys.exit()
 
-load = open(dir+todo,"r")
+load = open(dir+todo_open,"r")
 lines = load.readlines()
 load.close()
 
@@ -68,7 +69,7 @@ load.close()
 if len(sys.argv) < 2: #name of program is 1
 	list_of_notes = filter(isFileType,os.listdir(dir))
 	print("---------------")
-	print("file: "+todo+" | "+str(list(list_of_notes)))
+	print("file: "+todo_open+" | "+str(list(list_of_notes)))
 	if len(lines) < 1:
 		print("---------------")
 		print("there are no todos yet... please use 'add' ")
@@ -140,13 +141,13 @@ else:
 
 
 	elif usr_type == "-clear":
-		backup(lines,dir,todo)
+		backup(lines,dir,todo_open)
 		print("Are you sure to delete all to-dos? (yes/no)")
 		usr_confirmation_clear = input()
 		if usr_confirmation_clear in ['y','Y','yes','YES']:
 			lines = ""
 	elif usr_type == "-backup":
-		backup(lines,dir,todo)
+		backup(lines,dir,todo_open)
 	elif usr_type in ["-help","-h"]:
 		print("------------- \n add [text] - to add new todo \n edit [id] - edite todos \n done [id] - mark as done \n clear - to clear all todos in file \n backup - backup in new file \n-------------")
 	elif usr_type in ["-switch", "-s"]:
@@ -160,25 +161,29 @@ else:
 			if usr_create_file in ['y','Y','yes','YES']:
 				create = open(dir+switch+".md","w")
 				create.close()
-				todo = switch+".md"
+				todo_open = switch+".md"
 				with open(dir_script+'/objs.pkl', 'wb') as f:
-    					pickle.dump([dir,todo], f)
+    					pickle.dump([dir, todo, todo_open], f)
 				sys.exit()
 			else: 
 				sys.exit()
 		else:
-			todo = switch+".md"
+			todo_open = switch+".md"
 			with open(dir_script+'/objs.pkl', 'wb') as f:
-    				pickle.dump([dir,todo], f)
+    				pickle.dump([dir, todo, todo_open], f)
 			sys.exit()
-
+	elif usr_type in [".."]:
+		todo_open = todo
+		with open(dir_script+'/objs.pkl', 'wb') as f:
+    			pickle.dump([dir, todo, todo_open], f)
+		sys.exit()
 	else:
 		last = last + 1
 		usr_input = " ".join(sys.argv[1:]) 
 		lines.insert(0,("("+str(last)+")[] "+usr_input+"\n"))
 		
 
-load = open(dir+todo,"w")
+load = open(dir+todo_open,"w")
 load.seek(0)
 load.writelines(lines)
 load.truncate()

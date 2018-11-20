@@ -11,6 +11,7 @@ Simple and minimalistic to-do list tracker in python. Everything is saved in tex
 - `-clear` - clears all to-dos
 - `-backup` - creates backup in separate folder backup
 - `-switch [name]` - swich to different to-do list or create new todo list
+- `..` - return to default todolist
 
 For shorthand you can use just first letter `-a`,`-d`, `-e`, etc.
 
