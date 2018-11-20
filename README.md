@@ -1,17 +1,18 @@
 # todol
 
-To-do list in python. Simple and minimalistic to-do tracking. Everything is saved in text-file on your local drive. Sync can be done with ownCloud/Google Drive/Dropbox. 
+Simple and minimalistic to-do list tracker in python. Everything is saved in text-file on your local drive. Sync among devices can be achieved with ownCloud/Google Drive/Dropbox. 
 
 ## Features 
 
 - `-add [text]` - add new item to to-do list
-- `-done [id] [id]` - checkout item as done
-- `-undone [id] [id]` - uncheckout item
-- `-edit [id] [id]` - edite todos
+- `-done [id] [id] ...` - checkout item as done
+- `-undone [id] [id] ...` - uncheckout item
+- `-edit [id] [id] ...` - edite todos
 - `-clear` - clears all to-dos
-- `-backup` - creates backup 
-- `-switch [name]` - swich to different to-do list
+- `-backup` - creates backup in separate folder backup
+- `-switch [name]` - swich to different to-do list or create new todo list
 
+For shorthand you can use just first letter `-a`,`-d`, `-e`, etc.
 
 ## Install 
 
@@ -25,3 +26,7 @@ git clone https://github.com/jy-r/todol.git
 ```
 alias todol='python3 $path/todol/todol.py'
 ```
+
+## Config 
+
+
