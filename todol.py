@@ -8,7 +8,7 @@ import pickle
 
 
 def backup(lines,dir,todo):
-	print("Do you want to creat backup? (yes/no)")
+	print("Do you want to create backup? (yes/no)")
 	usr_confirmation_backup = input()
 	if usr_confirmation_backup in ['y','Y','yes','YES']:
 		if not os.path.exists(dir+"backup/"):
@@ -41,7 +41,7 @@ dir_script = sys.path[0]
 
 if os.path.isfile(dir_script+"/objs.pkl")==False:
 	dir = input_with_prefill("Set path to todo list file:", dir)
-	todo = input_with_prefill("Default file (recomended: 'todo.md'):", todo)
+	todo = input_with_prefill("Default file (recommended: 'todo.md'):", todo)
 	todo_open = todo
 	with open(dir_script+'/objs.pkl', 'wb') as f:
     		pickle.dump([dir, todo, todo_open], f)
@@ -53,7 +53,7 @@ with open(dir_script+'/objs.pkl', "rb") as f:
 
 
 if os.path.isfile(dir+todo_open) == False:
-	print("There is no "+todo_open+".md file. Do you want to creat it in directory: "+dir+"? (yes/n)")
+	print("There is no "+todo_open+".md file. Do you want to create it in directory: "+dir+"? (yes/n)")
 	usr_create_file = input()
 	if usr_create_file in ['y','Y','yes','YES']:
 		create = open(dir+todo_open,"w")
@@ -149,14 +149,14 @@ else:
 	elif usr_type == "-backup":
 		backup(lines,dir,todo_open)
 	elif usr_type in ["-help","-h"]:
-		print("------------- \n add [text] - to add new todo \n edit [id] - edite todos \n done [id] - mark as done \n clear - to clear all todos in file \n backup - backup in new file \n-------------")
+		print("------------- \n add [text] - to add new todo \n edit [id] - edit todos \n done [id] - mark as done \n clear - to clear all todos in file \n backup - backup in new file \n-------------")
 	elif usr_type in ["-switch", "-s"]:
 		switch = sys.argv[2]
 		if switch == "-l":
 			list_of_notes = filter(isFileType,os.listdir(dir))
 			print(str(list(list_of_notes)))
 		elif os.path.isfile(dir+switch+".md")==False:
-			print("There is no "+switch+".md file to switch to. Do you want to creat it in directory: "+dir+"? (yes/no)")
+			print("There is no "+switch+".md file to switch to. Do you want to create it in directory: "+dir+"? (yes/no)")
 			usr_create_file = input()
 			if usr_create_file in ['y','Y','yes','YES']:
 				create = open(dir+switch+".md","w")
