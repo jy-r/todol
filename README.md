@@ -7,13 +7,13 @@ Simple and minimalistic to-do list tracker in python. Everything is saved in tex
 - `-add [text]` - add new item to to-do list
 - `-done [id] [id] ...` - checkout item as done
 - `-undone [id] [id] ...` - uncheckout item
-- `-edit [id] [id] ...` - edite todos
+- `-edit [id] [id] ...` - edit todos
 - `-clear` - clears all to-dos
 - `-backup` - creates backup in separate folder backup
-- `-switch [name]` - swich to different to-do list or create new todo list
+- `-switch [name]` - switch to different to-do list or create new todo list
 - `..` - return to default todolist
 
-For shorthand you can use just first letter `-a`,`-d`, `-e`, etc.
+For shorthand, you can use just first letter `-a`,`-d`, `-e`, etc.
 
 ## Install 
 
