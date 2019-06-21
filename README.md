@@ -10,14 +10,14 @@ Name files "_tdl.md" for automatic checkbox addition.
 - `-insert [id] [text]` - insert new item in position of `id` to-do list
 - `-done [id] [id] ...` - checkout item as done
 - `-undone [id] [id] ...` - uncheckout item
-- `-edit [id] [id] ...` - edite todos
+- `-edit [id] [id] ...` - edit todos
 - `-all` - print all todos (done/undone) 
 - `-clear` - clears all to-dos
 - `-backup` - creates backup in separate folder backup
-- `-switch [name]` - swich to different to-do list or create new todo list
+- `-switch [name]` - switch to different to-do list or create new todo list
 - `..` - return to default todolist
 
-For shorthand you can use just first letter `-a`,`-d`, `-e`, etc.
+For shorthand, you can use just first letter `-a`,`-d`, `-e`, etc.
 
 ## Install 
 
