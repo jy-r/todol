@@ -4,8 +4,19 @@ import sys
 import time
 import readline
 import pickle
+from colored import fg, bg, attr
 
-
+# Colour setting
+cl_header = fg(72)
+cl_checkbox = fg(125)
+cl_message = fg(125)
+cl_number = fg(78)
+cl_sepparator = fg(166) 
+cl_reset = attr('reset')
+#cl_header = fg('#2AA198')
+#cl_checkbox = fg('#D33682')
+#cl_number = fg('#106E1E')
+#cl_sepparator = fg('#0B4D5E')
 
 def backup(lines,dir,todo):
     print("Do you want to create backup? (yes/no)")
@@ -40,6 +51,9 @@ def printID(x):
         return "("+str(x)+") "
     else:
         return "("+str(x)+")"
+
+def sep():
+    print(cl_sepparator + "----------------------" + cl_reset)
 
 # Set directory
 dir = "/home/jiri/ownCloud/notes/"
@@ -78,10 +92,10 @@ load.close()
 
 if len(sys.argv) < 2: #name of program is 1
     list_of_notes = filter(isFileType,os.listdir(dir))
-    print("---------------")
-    print("file: "+todo_open+" | "+str(list(list_of_notes)))
+    sep()
+    print(cl_header + "file: "+todo_open+" | "+str(list(list_of_notes)) + cl_reset)
     if len(lines) < 1:
-            print("---------------")
+            sep()
             print("there are no todos yet... please use 'add' ")
             last = 0
     else:
@@ -96,15 +110,15 @@ if len(sys.argv) < 2: #name of program is 1
                 usr_auto = input()
                 if usr_auto in ["y","Y","yes","YES"]:
                             lines[l] = "- [ ] "+lines[l]
-    print("---------------")
+    sep()
 # PRINT TODOs
     for j in range(0, len(lines)):
         if lines[j].find(" [ ] ") > 0:
-            print(printID(j)+lines[j], end="")
+            print(cl_number + printID(j) + cl_reset + cl_checkbox + "[ ]" + cl_reset + lines[j].replace("- [ ]", ""), end="")
             found_line = 1			
     if found_line == 0 and len(lines)>1:
         print("All to-do are already done... please use 'add'") 
-    print("---------------")
+    sep()
 else:
     usr_type = sys.argv[1]
 # ADD
@@ -120,34 +134,37 @@ else:
     elif usr_type in ["-all"]:
         for j in range(0, len(lines)):
             if lines[j].find(" [ ] ") > 0 or lines[j].find(" [X] ") > 0:
-               print(printID(j)+lines[j], end="")
+               print(cl_number + printID(j) + cl_reset +lines[j], end="")
+        print("\n")
+        sep()
 # DONE
     elif usr_type in ["-done","-d"]:
         for usr_done in sys.argv[2:]:
             if int(usr_done) > len(lines):
                 print("To do "+usr_done+" does not exist")
             elif lines[int(usr_done)].find("- [X]") == 2:
-                print("To do "+usr_done+" not found or already done")
+                print("To do "+cl_number+usr_done+cl_reset+" not found or already done")
             else:
                 lines[int(usr_done)] = lines[int(usr_done)].replace("- [ ]","- [X]")
-                print("To-do "+usr_done+" done")
+                print("To-do "+cl_number+usr_done+cl_reset+" done")
 # UNDONE
     elif usr_type in ["-udone","-u"]:
         for usr_undone in sys.argv[2:]:
             if int(usr_undone) > len(lines):
-                print("To do "+usr_undone+" does not exist")
+                print(cl_message + "To do "+ cl_reset + cl_number +usr_undone+cl_reset+" does not exist")
             elif lines[int(usr_undone)].find(")[ ]") == 2:
-                print("To do "+usr_undone+" is in progress")
+                print(cl_message + "To do " + cl_reset + cl_number +usr_undone+cl_reset+" is in progress")
             else:
                 lines[int(usr_undone)] = lines[int(usr_undone)].replace("- [X]","- [ ]")
-                print("To-do "+usr_undone+" undone")
+                print(cl_message + "To-do "+ cl_reset + cl_number +usr_undone+ cl_reset+ " undone")
 # EDIT
     elif usr_type in ["-e","-edit"]:
         for usr_edit in sys.argv[2:]:
             if int(usr_edit) > len(lines):
-                print("To do"+usr_edit+" does not exist")
+                print("To do"+cl_number+usr_edit+cl_reset+" does not exist")
             else:
-                lines[int(usr_edit)] = input_with_prefill("Edit:",lines[int(usr_edit)]).rstrip()+"\n"
+                print(cl_message+"Edit: "+cl_reset)
+                lines[int(usr_edit)] = input_with_prefill(":",lines[int(usr_edit)]).rstrip()+"\n"
 # CLEAR
     elif usr_type == "-clear":
         backup(lines,dir,todo_open)
@@ -160,7 +177,9 @@ else:
         backup(lines,dir,todo_open)
 # HELP
     elif usr_type in ["-help","-h"]:
-        print("------------- \n add [text] - to add new todo \n edit [id] - edit todos \n done [id] - mark as done \n clear - to clear all todos in file \n backup - backup in new file \n-------------")
+        sep()
+        print(" add [text] - to add new todo \n edit [id] - edit todos \n done [id] - mark as done \n clear - to clear all todos in file \n backup - backup in new file ")
+        sep()
 # SWITCH FILE
     elif usr_type in ["-switch", "-s"]:
         switch = sys.argv[2]
@@ -168,7 +187,7 @@ else:
             list_of_notes = filter(isFileType,os.listdir(dir))
             print(str(list(list_of_notes)))
         elif os.path.isfile(dir+switch+".md")==False:
-            print("There is no "+switch+".md file to switch to. Do you want to create it in directory: "+dir+"? (yes/no)")
+            print("There is no "+cl_message +switch+".md"+cl_reset+" file to switch to. Do you want to create it in directory: "+dir+"? (yes/no)")
             usr_create_file = input()
             if usr_create_file in ['y','Y','yes','YES']:
                 create = open(dir+switch+".md","w")
