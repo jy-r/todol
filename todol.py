@@ -52,6 +52,12 @@ def printID(x):
     else:
         return "("+str(x)+")"
 
+def printToDo(j, checked = True):
+    if checked == False:
+        print(cl_number + printID(j) + cl_reset + cl_checkbox + "[ ]" + cl_reset + lines[j].replace("- [ ]", ""), end="")
+    else:
+        print(cl_number + printID(j) + cl_reset + cl_checkbox + "[X]" + cl_reset + lines[j].replace("- [X]", ""), end="")
+
 def sep():
     print(cl_sepparator + "----------------------" + cl_reset)
 
@@ -114,7 +120,7 @@ if len(sys.argv) < 2: #name of program is 1
 # PRINT TODOs
     for j in range(0, len(lines)):
         if lines[j].find(" [ ] ") > 0:
-            print(cl_number + printID(j) + cl_reset + cl_checkbox + "[ ]" + cl_reset + lines[j].replace("- [ ]", ""), end="")
+            printToDo(j, False)
             found_line = 1			
     if found_line == 0 and len(lines)>1:
         print("All to-do are already done... please use 'add'") 
@@ -133,8 +139,10 @@ else:
 # PRINT ALL
     elif usr_type in ["-all"]:
         for j in range(0, len(lines)):
-            if lines[j].find(" [ ] ") > 0 or lines[j].find(" [X] ") > 0:
-               print(cl_number + printID(j) + cl_reset +lines[j], end="")
+            if lines[j].find(" [ ] ") > 0:
+                printToDo(j, False)    
+            elif lines[j].find(" [X] ") > 0:
+                printToDo(j, True)
         print("\n")
         sep()
 # DONE
