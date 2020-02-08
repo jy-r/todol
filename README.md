@@ -34,4 +34,6 @@ alias todol='python3 $path/todol/todol.py'
 
 ## Config 
 
+[install](/install/)
+
 
