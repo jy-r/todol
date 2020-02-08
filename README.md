@@ -19,6 +19,20 @@ Name files "_tdl.md" for automatic checkbox addition.
 
 For shorthand, you can use just first letter `-a`,`-d`, `-e`, etc.
 
+Example 
+
+```
+pc@usr:$ tdl
+----------------------
+file: todo_tdl.md | ['other_list_tdl.md', 'todo_tdl.md']
+----------------------
+(0)  [ ] github.com
+(1)  [ ] task 2
+(2)  [ ] task 1
+----------------------
+```
+
+
 ## Install 
 
 ```

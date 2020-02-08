@@ -62,7 +62,7 @@ def sep():
     print(cl_sepparator + "----------------------" + cl_reset)
 
 # Set directory
-dir = "/home/jiri/ownCloud/notes/"
+dir = "~/ownCloud/notes/"
 todo = "todo_tdl.md"
 dir_script = sys.path[0]
 
