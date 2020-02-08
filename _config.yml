@@ -1,2 +1,9 @@
 title: todol - simple todo list 
 theme: jekyll-theme-midnight
+defaults:
+  -
+    scope:
+      path: "_docs"
+      type: "pages"
+    values:
+      theme: jekyll-theme-midnight

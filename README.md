@@ -32,8 +32,6 @@ git clone https://github.com/jy-r/todol.git
 alias todol='python3 $path/todol/todol.py'
 ```
 
-## Config 
 
-[install](/install/)
 
 
